@@ -1,7 +1,6 @@
 import { Button } from "reactstrap";
 import "./Login.css";
 const Login = () => {
-  return (
     <div className="LoginPage">
       <div className="Box">
         <div className="imgBox">
@@ -16,12 +15,12 @@ const Login = () => {
             placeholder="전화번호, 사용자 이름 또는 이메일"
           ></input>
           <input type="password" placeholder="비밀번호"></input>
-          <Button>로그인</Button>
+          <Button color="primary">로그인</Button>
         </div>
       </div>
       <div className="Box">
         <p>
-          계정이 없으신가요? <a href="g"></a>
+          계정이 없으신가요? <a href="/join">가입하기</a>
         </p>
       </div>
     </div>

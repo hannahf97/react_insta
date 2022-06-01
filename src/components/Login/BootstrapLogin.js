@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Users } from "../../data/User";
+import { useContext, useState } from "react";
 import { Alert, Button, Col, Container, Form, Input, Row } from "reactstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import AuthRouter from "../AuthRouter";
+import { UserContext } from "../../store/UserContext";
 const BootstrapLogin = () => {
   const [isFail, setIsFail] = useState(false);
   const [user, setUser] = useState({
@@ -16,12 +16,14 @@ const BootstrapLogin = () => {
   };
 
   const navigate = useNavigate();
-  const onSubmitLogin = async (e) => {
+  const { users } = useContext(UserContext);
+  const onSubmitLogin = (e) => {
     e.preventDefault();
-    const findUser = Users.find(
-      (data) => data.userId === user.id && data.password === user.password
+    const findUser = users.find(
+      (data) => data.userId === user.userId && data.password === user.password
     );
-
+    console.log(users);
+    console.log(user);
     if (findUser) {
       localStorage.setItem("id", findUser.id);
       navigate("/");
@@ -48,6 +50,11 @@ const BootstrapLogin = () => {
 
           <Col xl={12}>
             <Form onSubmit={onSubmitLogin} className="LoginForm">
+              {isFail ? (
+                <Alert color="warning" toggle={() => closeAlert()}>
+                  아이디 또는 비밀번호가 틀렸습니다.
+                </Alert>
+              ) : null}
               <Input
                 type="text"
                 placeholder="ID"
@@ -61,7 +68,7 @@ const BootstrapLogin = () => {
                 onChange={(e) => onChangeHandler(e)}
               ></Input>
               <Button type={"submit"} color="primary" block>
-                로그인{" "}
+                로그인
               </Button>
             </Form>
           </Col>
