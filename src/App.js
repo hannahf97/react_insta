@@ -6,6 +6,7 @@ import Join from "./components/Join/Join";
 import { useState } from "react";
 import { Users } from "./data/User";
 import { UserContext } from "./store/UserContext";
+import Layout from "./components/Layout/Layout";
 function App() {
   const [users, setUsers] = useState(Users);
   const insertUsers = (user) => {
@@ -17,7 +18,9 @@ function App() {
     <UserContext.Provider value={{ users, insertUsers }}>
       <BrowserRouter>
         <Routes>
-          <Route index path="/" element={<Main></Main>}></Route>
+          <Route path="/" element={<Layout></Layout>}>
+            <Route index element={<Main></Main>}></Route>
+          </Route>
           <Route
             path="/login"
             element={<BootstrapLogin></BootstrapLogin>}
