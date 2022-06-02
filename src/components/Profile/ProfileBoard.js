@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ProfileBoard.css";
 import ProfileBoardDetail from "./ProfileBoardDetail";
-const ProfileBoard = ({ posts, name, img }) => {
+const ProfileBoard = ({ posts, name, img, deletePost }) => {
   console.log(img);
   const [isOpen, setIsOpen] = useState(false);
   const [clickPost, setClickPost] = useState();
@@ -12,6 +12,11 @@ const ProfileBoard = ({ posts, name, img }) => {
   const closeModal = () => {
     setClickPost();
     setIsOpen(false);
+  };
+
+  const onClickDelete = (postId) => {
+    deletePost(postId);
+    closeModal();
   };
 
   return (
@@ -32,6 +37,7 @@ const ProfileBoard = ({ posts, name, img }) => {
         isOpen={isOpen}
         clickPost={clickPost}
         closeModal={closeModal}
+        onClickDelete={onClickDelete}
       ></ProfileBoardDetail>
     </div>
   );

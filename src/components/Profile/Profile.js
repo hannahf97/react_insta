@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   const { name, img } = getUser();
-  const { posts } = useContext(PostContext);
+  const { posts, deletePost } = useContext(PostContext);
   const { follows } = useContext(FollowContext);
 
   const myPosts = () => {
@@ -38,7 +38,12 @@ const Profile = () => {
           posts={myPosts()}
           name={name}
         ></ProfileBody>
-        <ProfileBoard posts={myPosts()}></ProfileBoard>
+        <ProfileBoard
+          posts={myPosts()}
+          name={name}
+          img={img}
+          deletePost={deletePost}
+        ></ProfileBoard>
       </Container>
     </>
   );
