@@ -12,6 +12,7 @@ import { PostContext } from "./store/PostContext";
 import { FollowContext } from "./store/FollowContext";
 import Layout from "./components/Layout/Layout";
 import Profile from "./components/Profile/Profile";
+import Search from "./components/Search/Search";
 
 function App() {
   const [users, setUsers] = useState(Users);
@@ -67,6 +68,7 @@ function App() {
                 <Route index element={<Main></Main>}></Route>
                 <Route path="/shopping" element={<Main></Main>}></Route>
                 <Route path="/profile" element={<Profile></Profile>}></Route>
+                <Route path="/search" element={<Search></Search>}></Route>
               </Route>
               <Route
                 path="/login"

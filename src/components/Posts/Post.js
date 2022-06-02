@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./ProfileBoard.css";
-import ProfileBoardDetail from "./ProfileBoardDetail";
-const ProfileBoard = ({ posts, name, img, deletePost }) => {
-  console.log(img);
+import "./Post.css";
+import PostDetail from "./PostDetail";
+const Post = ({ posts, deletePost }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [clickPost, setClickPost] = useState();
   const openModal = (post) => {
@@ -10,6 +9,7 @@ const ProfileBoard = ({ posts, name, img, deletePost }) => {
     setIsOpen(true);
   };
   const closeModal = () => {
+    console.log("clicked");
     setClickPost();
     setIsOpen(false);
   };
@@ -20,26 +20,26 @@ const ProfileBoard = ({ posts, name, img, deletePost }) => {
   };
 
   return (
-    <div className="profileBoard">
+    <div className="Posts">
       {posts?.map((data) => (
-        <div className="profileBoardImgBox" onClick={() => openModal(data)}>
+        <div className="PostsImgBox" onClick={() => openModal(data)}>
           <img
-            className="profileBoardImg"
+            className="PostsImg"
             key={data.id}
             src={data.img}
             alt={data.content}
           ></img>
         </div>
       ))}
-      <ProfileBoardDetail
-        name={name}
-        img={img}
-        isOpen={isOpen}
-        clickPost={clickPost}
-        closeModal={closeModal}
-        onClickDelete={onClickDelete}
-      ></ProfileBoardDetail>
+      {clickPost ? (
+        <PostDetail
+          isOpen={isOpen}
+          clickPost={clickPost}
+          closeModal={closeModal}
+          onClickDelete={onClickDelete}
+        ></PostDetail>
+      ) : null}
     </div>
   );
 };
-export default ProfileBoard;
+export default Post;
