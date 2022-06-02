@@ -22,11 +22,7 @@ const Join = () => {
   const onSubmitLogin = async (e) => {
     e.preventDefault();
     //const findUser = Users.find((data) => data.userId === user.id);
-    if (user.id === "") {
-      // id is null
-      openAlert("이미 존재하는 아이디");
-      return;
-    } else if (user.id === "") {
+    if (user.userId === "") {
       openAlert("아이디를 입력해주세요");
       return;
     } else if (user.password === "") {
@@ -38,12 +34,13 @@ const Join = () => {
       openAlert("이름를 입력해주세요");
       return;
     }
-    const check = await dispatch(getCheckId(user.id)).unwrap();
+    const check = await dispatch(getCheckId(user.userId)).unwrap();
 
     if (check) {
       openAlert("이미 존재하는 아이디");
       return;
     } else {
+      console.log(user);
       await dispatch(insertUser(user));
       await dispatch(login(user));
       navigate("/");
@@ -63,6 +60,7 @@ const Join = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   return (
     <div className="JoinPage">
       <Container className="bg-light border">

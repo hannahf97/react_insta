@@ -7,6 +7,8 @@ import {
   loginApi,
   postUser,
   getUserByUserId,
+  getUserByKey,
+  putUsers,
 } from "./usersApi";
 const initialState = {
   users: Users,
@@ -46,6 +48,7 @@ export const loginCheck = createAsyncThunk(
     return;
   }
 );
+
 export const login = createAsyncThunk(LOGIN, async (user, thunkAPI) => {
   const { users } = thunkAPI.getState().users;
   const isLogin = await loginApi(users, user);
@@ -55,8 +58,20 @@ export const insertUser = createAsyncThunk(
   INSERT_USER,
   async (user, thunkAPI) => {
     const { users } = thunkAPI.getState().users;
-    await postUser(users, user);
-    // return newUser;
+    const newUser = await postUser(users, user);
+    return newUser;
+  }
+);
+export const updateUsers = createAsyncThunk(
+  UPDATE_USERS,
+  async (user, thunkAPI) => {
+    const { myId, users } = thunkAPI.getState().users;
+    // let formData = new FormData();
+    // formData.append("file", user.file);
+    // await fileUpload("post", "/upload", formData);
+    // const removeFileUser = { ...user, file: "", img: `/${user.file.name}` };
+    const newUsers = await putUsers(users, user, myId);
+    return { newUsers, user };
   }
 );
 export const selectUserById = createAsyncThunk(
@@ -74,6 +89,17 @@ export const selectUserByUserId = createAsyncThunk(
     const { users } = thunkAPI.getState().users;
     const newUser = await getUserByUserId(users, userId);
     return newUser;
+  }
+);
+
+export const selectUserByKey = createAsyncThunk(
+  SELECT_USER_BY_KEY,
+  async (key, thunkAPI) => {
+    const { users } = thunkAPI.getState().users;
+    const reg = new RegExp(key, "g");
+    const newUsers = await getUserByKey(users, reg);
+
+    return newUsers.id;
   }
 );
 
@@ -107,6 +133,11 @@ export const usersSlice = createSlice({
       .addCase(logout.fulfilled, (state, { payload }) => {
         localStorage.removeItem("id");
         return { ...state, isLogin: false, me: {}, myId: "" };
+      })
+      .addCase(updateUsers.fulfilled, (state, { payload }) => {
+        // const { newUsers, user } = payload;
+        // return {  me: { ...state.me, ...user }, users: newUsers };
+        return { ...state, me: payload.removeFileUser };
       })
       .addCase(insertUser.fulfilled, (state, { payload }) => {
         return { ...state, users: payload };

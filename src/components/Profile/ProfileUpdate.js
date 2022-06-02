@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Input, InputGroup, InputGroupText, Modal } from "reactstrap";
 import { UserContext } from "../../store/UserContext";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUsers } from "../../store/users";
 import "./ProfileUpdate.css";
 const ProfileUpdate = ({
   img = "/img/profile/1.jpeg",
@@ -12,14 +14,14 @@ const ProfileUpdate = ({
     name,
     img,
   });
-
+  const dispatch = useDispatch();
   const onChangeFile = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setForm({ ...form, img: reader.result, file });
+        setForm({ ...form, img: reader.result });
         resolve();
       };
     });
@@ -28,12 +30,10 @@ const ProfileUpdate = ({
     const { value } = e.target;
     setForm({ ...form, name: value });
   };
-  const { updateUsers } = useContext(UserContext);
+  //const { updateUsers } = useContext(UserContext);
 
   const onSubmit = () => {
-    const img = form.file ? form.file.name : form.img;
-    const data = { ...form, img };
-    updateUsers(data);
+    dispatch(updateUsers(form));
     modalClose();
   };
   return (
@@ -43,10 +43,9 @@ const ProfileUpdate = ({
         onSubmit={onSubmit}
       ></ProfileUpdateHeader>
       <ProfileUpdateBody
-        img={form.img}
-        name={form.name}
         onChangeName={onChangeName}
         onChangeFile={onChangeFile}
+        form={form}
       ></ProfileUpdateBody>
     </Modal>
   );
