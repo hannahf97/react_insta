@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "reactstrap";
 import { AiOutlineSearch } from "react-icons/ai";
+import "./SearchBar.css";
 
 const SearchBar = ({ searchKey, setSearchKey, onSubmitSearch }) => {
   return (
