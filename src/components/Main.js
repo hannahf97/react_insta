@@ -1,10 +1,4 @@
-import AuthRouter from "./AuthRouter";
-
 const Main = () => {
-  return (
-    <div>
-      <AuthRouter></AuthRouter>main
-    </div>
-  );
+  return <div>main</div>;
 };
 export default Main;
