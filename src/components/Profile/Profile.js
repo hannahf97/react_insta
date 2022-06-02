@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   const { name, img } = getUser();
-  const { posts } = useContext(PostContext);
+  const { posts, deletePost } = useContext(PostContext);
   const { follows } = useContext(FollowContext);
 
   const myPosts = () => {
@@ -32,13 +32,18 @@ const Profile = () => {
       <ProfileHeader name={name}></ProfileHeader>
       <Container className="ProfileContainer">
         <ProfileBody
-          img={img} //
+          img={img}
           follower={myFollower()}
           following={myFollowing()}
           posts={myPosts()}
           name={name}
         ></ProfileBody>
-        <ProfileBoard posts={myPosts()}></ProfileBoard>
+        <ProfileBoard
+          posts={myPosts()}
+          name={name}
+          img={img}
+          deletePost={deletePost}
+        ></ProfileBoard>
       </Container>
     </>
   );
