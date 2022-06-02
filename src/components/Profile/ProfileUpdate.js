@@ -82,7 +82,7 @@ const ProfileUpdateBody = ({ onChangeFile, onChangeName, img, name }) => {
         <div className="profileImgBox">
           <img
             className="profileImg"
-            src={img?.indexOf("/") ? img : `http://localhost:8000${img}`} //
+            src={img?.indexOf("/") ? img : img} //
             alt="myProfileImg"
           ></img>
         </div>
