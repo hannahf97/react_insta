@@ -1,8 +1,23 @@
-const ProfileBoard = ({ posts }) => {
+import { useState } from "react";
+import "./ProfileBoard.css";
+import ProfileBoardDetail from "./ProfileBoardDetail";
+const ProfileBoard = ({ posts, name, img }) => {
+  console.log(img);
+  const [isOpen, setIsOpen] = useState(false);
+  const [clickPost, setClickPost] = useState();
+  const openModal = (post) => {
+    setClickPost(post);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setClickPost();
+    setIsOpen(false);
+  };
+
   return (
     <div className="profileBoard">
       {posts?.map((data) => (
-        <div className="profileBoardImg">
+        <div className="profileBoardImgBox" onClick={() => openModal(data)}>
           <img
             className="profileBoardImg"
             key={data.id}
@@ -11,6 +26,13 @@ const ProfileBoard = ({ posts }) => {
           ></img>
         </div>
       ))}
+      <ProfileBoardDetail
+        name={name}
+        img={img}
+        isOpen={isOpen}
+        clickPost={clickPost}
+        closeModal={closeModal}
+      ></ProfileBoardDetail>
     </div>
   );
 };

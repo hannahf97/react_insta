@@ -32,7 +32,7 @@ const Profile = () => {
       <ProfileHeader name={name}></ProfileHeader>
       <Container className="ProfileContainer">
         <ProfileBody
-          img={img} //
+          img={img}
           follower={myFollower()}
           following={myFollowing()}
           posts={myPosts()}
