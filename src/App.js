@@ -12,6 +12,7 @@ import { PostContext } from "./store/PostContext";
 import { FollowContext } from "./store/FollowContext";
 import Layout from "./components/Layout/Layout";
 import Profile from "./components/Profile/Profile";
+
 function App() {
   const [users, setUsers] = useState(Users);
   const insertUsers = (user) => {
