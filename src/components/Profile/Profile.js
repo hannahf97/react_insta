@@ -6,7 +6,7 @@ import ProfileHeader from "./ProfileHeader";
 import "./Profile.css";
 import { PostContext } from "../../store/PostContext";
 import { FollowContext } from "../../store/FollowContext";
-import ProfileBoard from "./ProfileBoard";
+import Post from "../Posts/Post";
 const Profile = () => {
   const { users } = useContext(UserContext);
   const id = Number(localStorage.getItem("id"));
@@ -38,12 +38,12 @@ const Profile = () => {
           posts={myPosts()}
           name={name}
         ></ProfileBody>
-        <ProfileBoard
+        <Post
           posts={myPosts()}
           name={name}
           img={img}
           deletePost={deletePost}
-        ></ProfileBoard>
+        ></Post>
       </Container>
     </>
   );
