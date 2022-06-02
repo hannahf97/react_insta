@@ -1,10 +1,14 @@
 import { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert, Button, Col, Container, Form, Input, Row } from "reactstrap";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import AuthRouter from "../AuthRouter";
 import { UserContext } from "../../store/UserContext";
+import { login } from "../../store/users";
 const BootstrapLogin = () => {
+  const { isLogin } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
   const [isFail, setIsFail] = useState(false);
   const [user, setUser] = useState({
     id: "",
@@ -16,16 +20,10 @@ const BootstrapLogin = () => {
   };
 
   const navigate = useNavigate();
-  const { users } = useContext(UserContext);
-  const onSubmitLogin = (e) => {
+  const onSubmitLogin = async (e) => {
     e.preventDefault();
-    const findUser = users.find(
-      (data) => data.userId === user.userId && data.password === user.password
-    );
-    console.log(users);
-    console.log(user);
-    if (findUser) {
-      localStorage.setItem("id", findUser.id);
+    dispatch(login({ user }));
+    if (isLogin) {
       navigate("/");
     } else {
       //없는 유저 처리
