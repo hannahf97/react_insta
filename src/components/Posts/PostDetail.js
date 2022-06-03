@@ -1,11 +1,10 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Button, Container, Modal } from "reactstrap";
-import { UserContext } from "../../store/UserContext";
 import ProfileBody from "../Profile/ProfileBody";
 import "./PostDetail.css";
 
 const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete, user }) => {
-  const myId = UserContext((state) => state.users.myId);
+  const myId = Number(useSelector((state) => state.users.myId));
   return (
     <Modal isOpen={isOpen} fullscreen toggle={closeModal}>
       <div className="PostsModalHeader">

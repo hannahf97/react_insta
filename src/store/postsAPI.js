@@ -1,6 +1,7 @@
 export const getPostById = async (posts, id) => {
   try {
-    const findPostById = await posts.filter((post) => post.id === id);
+    console.log(id);
+    const findPostById = await posts.filter((post) => post.id === Number(id));
     return findPostById;
   } catch (error) {
     throw error;
@@ -9,9 +10,11 @@ export const getPostById = async (posts, id) => {
 
 export const getPostByUserId = async (posts, userId) => {
   try {
+    console.log("사람 " + userId);
     const findPostByuserId = await posts.filter(
-      (post) => post.userId === userId
+      (post) => post.userId === Number(userId)
     );
+    console.log(findPostByuserId);
     return findPostByuserId;
   } catch (error) {
     throw error;

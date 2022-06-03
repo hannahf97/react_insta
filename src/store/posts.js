@@ -5,6 +5,7 @@ import {
   deletePostById,
   getPostByKey,
   getPostByOther,
+  getPostById,
   getPostByUserId,
 } from "./postsAPI";
 const initialState = {
@@ -41,11 +42,11 @@ export const selectMyPost = createAsyncThunk(
     const { posts } = thunkAPI.getState().posts;
     if (myId) {
       const myPosts = await getPostByUserId(posts, Number(myId));
+      return myPosts;
     } else if (myId === 0 || myId === "0") {
       const myPosts = await getPostByUserId(posts, Number(myId));
       return myPosts;
     }
-    return;
   }
 );
 
@@ -118,6 +119,7 @@ export const postsSlice = createSlice({
         return { ...state, myPosts: newMyPosts };
       })
       .addCase(selectMyPost.fulfilled, (state, { payload }) => {
+        console.log(payload);
         const newMyPosts = { ...state.myPosts };
         newMyPosts.loading = false;
         if (payload) {

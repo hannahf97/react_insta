@@ -10,12 +10,9 @@ import { selectMyPost } from "../../store/posts";
 const Profile = () => {
   const { name, img, id } = useSelector((state) => state.users.me);
   const myPosts = useSelector((state) => state.posts.myPosts);
+  console.log(myPosts);
   const { follows } = useContext(FollowContext);
   const dispatch = useDispatch();
-
-  const getMyPost = () => {
-    dispatch(selectMyPost());
-  };
 
   const myFollower = () => {
     return follows.filter((follow) => follow.following === id);
@@ -25,7 +22,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getMyPost();
+    dispatch(selectMyPost());
     // myFollower();
     // myFollowing();
   }, []);

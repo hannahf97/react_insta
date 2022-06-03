@@ -135,9 +135,9 @@ export const usersSlice = createSlice({
         return { ...state, isLogin: false, me: {}, myId: "" };
       })
       .addCase(updateUsers.fulfilled, (state, { payload }) => {
-        // const { newUsers, user } = payload;
-        // return {  me: { ...state.me, ...user }, users: newUsers };
-        return { ...state, me: payload.removeFileUser };
+        const { newUsers, user } = payload;
+        return { me: { ...state.me, ...user }, users: newUsers };
+        // return { ...state, me: payload.removeFileUser };
       })
       .addCase(insertUser.fulfilled, (state, { payload }) => {
         return { ...state, users: payload };
