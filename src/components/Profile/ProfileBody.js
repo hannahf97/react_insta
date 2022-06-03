@@ -8,6 +8,7 @@ const ProfileBody = ({
   following = new Array(5),
   img = "/img/profile/1.jpeg",
   name = "park",
+  postState,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const modalClose = () => {
@@ -28,7 +29,7 @@ const ProfileBody = ({
         </div>
         <div className="profileTextBox">
           <div>
-            {posts.length}
+            {postState.loading ? <Spinner>loading...</Spinner> : posts.length}
             <br></br>
             게시물
           </div>

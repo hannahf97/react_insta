@@ -32,13 +32,14 @@ export const postPost = async (posts, post) => {
 
 export const deletePostById = async (posts, id) => {
   const delPosts = await posts.filter((post) => post.id !== id);
+  console.log(delPosts);
   return [...delPosts];
 };
 
 export const getPostByOther = async (posts, userId) => {
   try {
     const findPostByUserId = await posts.filter(
-      (post) => post.userId !== userId
+      (post) => post.userId !== Number(userId)
     );
     return findPostByUserId;
   } catch (error) {

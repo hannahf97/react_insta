@@ -9,13 +9,20 @@ import { selectPostsByKey } from "../../store/posts";
 const Search = () => {
   const dispatch = useDispatch();
   const otherPosts = useSelector((state) => state.posts.otherPosts);
+
   useEffect(() => {
     dispatch(selectOtherPost());
+    setSearchPost(otherPosts);
   }, []);
+  console.log("다른사람포스트");
+  console.log(otherPosts);
+  const [searchPost, setSearchPost] = useState(otherPosts);
   const [searchKey, setSearchKey] = useState();
 
   const onSubmitSearch = async (e) => {
     e.preventDefault();
+    //action
+
     const findUserId = await dispatch(selectUserByKey(searchKey)).unwrap();
     await dispatch(selectPostsByKey({ searchKey, userId: findUserId }));
   };

@@ -7,6 +7,7 @@ import {
   getPostByOther,
   getPostById,
   getPostByUserId,
+  postPost,
 } from "./postsAPI";
 const initialState = {
   posts: Post,
@@ -67,6 +68,7 @@ export const selectOtherPost = createAsyncThunk(
     if (myId) {
       const myPosts = await getPostByOther(posts, Number(myId));
       return myPosts;
+      console.log(myPosts);
     } else if (myId === 0 || myId === "0") {
       const myPosts = await getPostByOther(posts, Number(myId));
       return myPosts;
@@ -82,7 +84,9 @@ export const insertPosts = createAsyncThunk(
     const { posts } = thunkAPI.getState().posts;
 
     const { content, img } = payload;
-    const post = { content, img, userId: Number };
+    const post = { content, img, userId: Number(myId) };
+    const myPosts = await postPost(posts, post);
+    return myPosts;
     //await fileUpload("post", "/upload", formData);
     // const removeFilePost = {
     //   ...payload,
@@ -119,7 +123,6 @@ export const postsSlice = createSlice({
         return { ...state, myPosts: newMyPosts };
       })
       .addCase(selectMyPost.fulfilled, (state, { payload }) => {
-        console.log(payload);
         const newMyPosts = { ...state.myPosts };
         newMyPosts.loading = false;
         if (payload) {
@@ -128,6 +131,17 @@ export const postsSlice = createSlice({
         } else {
           newMyPosts.message = "글이 없습니다.";
           return { ...state, myPosts: newMyPosts };
+        }
+      })
+      .addCase(selectOtherPost.fulfilled, (state, { payload }) => {
+        const newMyPosts = { ...state.otherPosts };
+        newMyPosts.loading = false;
+        if (payload) {
+          newMyPosts.posts = payload;
+          return { ...state, otherPosts: newMyPosts };
+        } else {
+          newMyPosts.message = "글이 없습니다.";
+          return { ...state, otherPosts: newMyPosts };
         }
       })
       .addCase(selectMyPost.rejected, (state, { error }) => {
@@ -160,6 +174,9 @@ export const postsSlice = createSlice({
         newOtherPosts.loading = false;
         newOtherPosts.message = error.message;
         return { ...state, otherPosts: newOtherPosts };
+      })
+      .addCase(insertPosts.fulfilled, (state, { payload }) => {
+        return { ...state, posts: payload };
       });
   },
 });
