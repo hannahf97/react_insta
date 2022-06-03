@@ -38,7 +38,7 @@ export const Post = [
   {
     id: 6,
     userId: 3,
-    img: "/img/post/3.webp",
+    img: "/img/post/3.jpeg",
     content: "user 3 안녕하세요5",
   },
 ];

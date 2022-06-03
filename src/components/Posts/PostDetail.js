@@ -17,7 +17,6 @@ const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete, user }) => {
     dispatch(selectMyFollowingOne(user.id))
       .unwrap()
       .then((res) => {
-        console.log(res);
         setMyfollowing(res);
       });
   };
@@ -27,13 +26,14 @@ const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete, user }) => {
 
   const unFollow = async () => {
     await dispatch(deleteFollow(user.id));
+    //await setMyfollowing(false);
     await postFollowData();
   };
   const follow = async () => {
     await dispatch(insertFollowing(user.id));
+    //await setMyfollowing(true);
     await postFollowData();
   };
-
   return (
     <Modal isOpen={isOpen} fullscreen toggle={closeModal}>
       <div className="PostsModalHeader">
