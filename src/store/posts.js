@@ -6,6 +6,7 @@ import {
   getPostByOther,
   getPostByUserId,
   postPost,
+  getPostMain,
 } from "./postsAPI";
 const initialState = {
   posts: Post,
@@ -98,6 +99,18 @@ export const insertPosts = createAsyncThunk(
   }
 );
 
+export const selectPostMain = createAsyncThunk(
+  SELECT_POST_MAIN,
+  async (payload, thunkAPI) => {
+    const { posts } = thunkAPI.getState().posts;
+    const { follows } = thunkAPI.getState().follows.myFollower;
+    const { users } = thunkAPI.getState().users;
+
+    const myPosts = await getPostMain(posts, follows, users);
+    return myPosts;
+  }
+);
+
 export const selectPostsByKey = createAsyncThunk(
   SELECT_POST_BY_KEY,
   async ({ searchKey, userId }, thunkAPI) => {
@@ -174,6 +187,23 @@ export const postsSlice = createSlice({
       })
       .addCase(insertPosts.fulfilled, (state, { payload }) => {
         return { ...state, posts: payload };
+      })
+      .addCase(selectPostMain.pending, (state, { payload }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = true;
+        return { ...state, mainPosts };
+      })
+      .addCase(selectPostMain.fulfilled, (state, { payload }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = false;
+        mainPosts.posts = payload;
+        return { ...state, mainPosts };
+      })
+      .addCase(selectPostMain.rejected, (state, { error }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = false;
+        mainPosts.message = error.message;
+        return { ...state, mainPosts };
       });
   },
 });
