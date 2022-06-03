@@ -29,4 +29,16 @@ export const Post = [
     img: "/img/post/1.jpeg",
     content: "user 0 안녕하세요5",
   },
+  {
+    id: 5,
+    userId: 1,
+    img: "/img/post/1.jpeg",
+    content: "user 1 안녕하세요5",
+  },
+  {
+    id: 6,
+    userId: 3,
+    img: "/img/post/3.webp",
+    content: "user 3 안녕하세요5",
+  },
 ];

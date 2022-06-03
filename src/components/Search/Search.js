@@ -1,27 +1,30 @@
-import { useContext, useState } from "react";
-import { PostContext } from "../../store/PostContext";
-import { UserContext } from "../../store/UserContext";
+import { useEffect, useState } from "react";
 import Post from "../Posts/Post";
 import SearchBar from "./SearchBar";
+import { useDispatch, useSelector } from "react-redux";
+import { selectOtherPost } from "../../store/posts";
+import { selectUserByKey } from "../../store/users";
+import { selectPostsByKey } from "../../store/posts";
 
 const Search = () => {
-  const { users } = useContext(UserContext);
-  const id = Number(localStorage.getItem("id"));
-  const { posts } = useContext(PostContext);
-  const otherPosts = () => {
-    return posts.filter((post) => post.userId !== id);
-  };
+  const dispatch = useDispatch();
+  const otherPosts = useSelector((state) => state.posts.otherPosts);
 
+  useEffect(() => {
+    dispatch(selectOtherPost());
+    setSearchPost(otherPosts);
+  }, []);
+  console.log("다른사람포스트");
+  console.log(otherPosts);
   const [searchPost, setSearchPost] = useState(otherPosts);
   const [searchKey, setSearchKey] = useState();
-  const onSubmitSearch = (e) => {
+
+  const onSubmitSearch = async (e) => {
     e.preventDefault();
-    const reg = new RegExp(searchKey, "g");
-    const findUser = users.find((user) => reg.test(user.name));
-    const findPosts = posts.filter(
-      (post) => findUser.id === post.userId || reg.test(post.content)
-    );
-    setSearchPost(findPosts);
+    //action
+
+    const findUserId = await dispatch(selectUserByKey(searchKey)).unwrap();
+    await dispatch(selectPostsByKey({ searchKey, userId: findUserId }));
   };
 
   return (
@@ -31,7 +34,7 @@ const Search = () => {
         setSearchKey={setSearchKey}
         onSubmitSearch={onSubmitSearch}
       ></SearchBar>
-      <Post posts={searchPost}></Post>
+      <Post posts={otherPosts.posts} postState={otherPosts}></Post>
     </div>
   );
 };

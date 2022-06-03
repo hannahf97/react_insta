@@ -1,16 +1,10 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Button, Container, Modal } from "reactstrap";
-import { UserContext } from "../../store/UserContext";
 import ProfileBody from "../Profile/ProfileBody";
 import "./PostDetail.css";
 
-const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete }) => {
-  const { users } = useContext(UserContext);
-  const getUser = () => {
-    return users.find((user) => user.id === clickPost.userId);
-  };
-  const user = getUser();
-  const myId = Number(localStorage.getItem("id"));
+const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete, user }) => {
+  const myId = Number(useSelector((state) => state.users.myId));
   return (
     <Modal isOpen={isOpen} fullscreen toggle={closeModal}>
       <div className="PostsModalHeader">
@@ -23,11 +17,7 @@ const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete }) => {
         </div>
         <div>
           {user.id === myId ? (
-            <Button
-              color="danger"
-              outline
-              onClick={() => onClickDelete(clickPost.id)}
-            >
+            <Button color="danger" onClick={() => onClickDelete(clickPost.id)}>
               삭제하기
             </Button>
           ) : (
