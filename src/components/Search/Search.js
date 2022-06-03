@@ -14,8 +14,6 @@ const Search = () => {
     dispatch(selectOtherPost());
     setSearchPost(otherPosts);
   }, []);
-  console.log("다른사람포스트");
-  console.log(otherPosts);
   const [searchPost, setSearchPost] = useState(otherPosts);
   const [searchKey, setSearchKey] = useState();
 

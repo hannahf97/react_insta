@@ -68,7 +68,6 @@ export const selectOtherPost = createAsyncThunk(
     if (myId) {
       const myPosts = await getPostByOther(posts, Number(myId));
       return myPosts;
-      console.log(myPosts);
     } else if (myId === 0 || myId === "0") {
       const myPosts = await getPostByOther(posts, Number(myId));
       return myPosts;

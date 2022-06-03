@@ -3,9 +3,9 @@ import { Button, Spinner } from "reactstrap";
 import "./ProfileBody.css";
 import ProfileUpdate from "./ProfileUpdate";
 const ProfileBody = ({
-  posts = new Array(5),
-  follower = new Array(5),
-  following = new Array(5),
+  posts,
+  follower,
+  following,
   img = "/img/profile/1.jpeg",
   name = "park",
   postState,
@@ -17,6 +17,7 @@ const ProfileBody = ({
   const modalOpen = () => {
     setIsOpen(true);
   };
+  console.log(follower);
   return (
     <>
       <div className="profileBodyBox">
@@ -34,12 +35,20 @@ const ProfileBody = ({
             게시물
           </div>
           <div>
-            {follower.length}
+            {follower.loading ? (
+              <Spinner>loading...</Spinner>
+            ) : (
+              follower.follows.length
+            )}
             <br></br>
             팔로워
           </div>
           <div>
-            {following.length}
+            {following.loading ? (
+              <Spinner>loading...</Spinner>
+            ) : (
+              following.follows.length
+            )}
             <br></br>
             팔로잉
           </div>
