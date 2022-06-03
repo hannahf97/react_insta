@@ -9,8 +9,9 @@ export const postFollower = async (myId, userId) => {
 
 export const deleteFollowing = async (follows, myId, userId) => {
   try {
+    console.log("myId " + myId + " userId" + userId);
     const delPosts = await follows.filter(
-      (follow) => !(follow.follower === myId && follow.following === userId)
+      (follow) => !(follow.follower === userId && follow.following === myId)
     );
     return delPosts;
   } catch (error) {
