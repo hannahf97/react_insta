@@ -17,7 +17,6 @@ const ProfileBody = ({
   const modalOpen = () => {
     setIsOpen(true);
   };
-  console.log(follower);
   return (
     <>
       <div className="profileBodyBox">

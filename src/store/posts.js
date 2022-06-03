@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { Post } from "../data/Post";
 import {
   deletePostById,
   getPostByKey,
   getPostByOther,
-  getPostById,
   getPostByUserId,
   postPost,
 } from "./postsAPI";
