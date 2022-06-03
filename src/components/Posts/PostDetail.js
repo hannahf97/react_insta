@@ -6,7 +6,6 @@ import {
   insertFollowing,
   selectMyFollowingOne,
 } from "../../store/follows";
-import ProfileBody from "../Profile/ProfileBody";
 import "./PostDetail.css";
 
 const PostDetail = ({ isOpen, clickPost, closeModal, onClickDelete, user }) => {

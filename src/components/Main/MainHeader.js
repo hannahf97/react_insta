@@ -1,5 +1,6 @@
 import React from "react";
 import PostsAdd from "../Posts/PostsAdd";
+import "./Main.css";
 const MainHeader = () => {
   return (
     <div className="mainHeader">

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Spinner } from "reactstrap";
 import { selectMyFollower } from "../../store/follows";
 import { selectPostMain } from "../../store/posts";
+import Post from "../Posts/Post";
+import PostDetail from "../Posts/PostDetail";
 import "./Main.css";
 import MainCard from "./MainCard";
 import MainHeader from "./MainHeader";
@@ -24,7 +26,7 @@ const Main = () => {
           <Spinner>loading...</Spinner>
         ) : (
           mainPosts.posts.map((post) => (
-            <MainCard key={post.id} post={post}></MainCard>
+            <MainCard key={post.id} post={post} onClick={"동작"}></MainCard>
           ))
         )}
       </Container>

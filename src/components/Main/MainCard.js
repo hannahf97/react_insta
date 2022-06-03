@@ -1,8 +1,14 @@
 import { Card } from "reactstrap";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { useState } from "react";
 
 const MainCard = ({ post }) => {
+  const [heart, isChecked] = useState(false);
+  const onClick = () => {
+    isChecked(!heart);
+  };
   return (
-    <Card className="mainCard">
+    <Card className="mainCard" onClick={onClick}>
       <div className="PostsBodyHeader">
         <div className="PostsBodyHeaderImgBox">
           <img
@@ -19,6 +25,13 @@ const MainCard = ({ post }) => {
         alt="postimg"
       ></img>
       <p>{post?.content}</p>
+      <p>
+        {heart ? (
+          <HeartFilled style={{ color: "red" }}></HeartFilled>
+        ) : (
+          <HeartOutlined></HeartOutlined>
+        )}
+      </p>
     </Card>
   );
 };

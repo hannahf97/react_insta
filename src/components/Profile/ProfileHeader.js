@@ -33,8 +33,8 @@ const ProfileHeader = ({ name }) => {
         <Button outline onClick={onClickLogout}>
           <BiLogOut size={30}></BiLogOut>
         </Button>
+        <PostsAdd></PostsAdd>
       </div>
-      <PostsAdd></PostsAdd>
     </div>
   );
 };
