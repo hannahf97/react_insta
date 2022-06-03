@@ -1,6 +1,6 @@
 export const postFollower = async (myId, userId) => {
   try {
-    const newFollower = await { follower: myId, following: userId };
+    const newFollower = await { follower: userId, following: myId };
     return newFollower;
   } catch (error) {
     throw error;
@@ -9,8 +9,9 @@ export const postFollower = async (myId, userId) => {
 
 export const deleteFollowing = async (follows, myId, userId) => {
   try {
+    console.log("myId " + myId + " userId" + userId);
     const delPosts = await follows.filter(
-      (follow) => !(follow.follower === myId && follow.following === userId)
+      (follow) => !(follow.follower === userId && follow.following === myId)
     );
     return delPosts;
   } catch (error) {
@@ -43,7 +44,7 @@ export const getFollowingByMe = async (follows, myId) => {
 export const getFollowingByMeOne = async (follows, myId, userId) => {
   try {
     const findFollowingByMe = await follows.filter(
-      (follow) => follow.following === userId && follow.follower === myId
+      (follow) => follow.following === myId && follow.follower === userId
     );
     return findFollowingByMe;
   } catch (error) {
