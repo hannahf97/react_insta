@@ -7,25 +7,29 @@ import { FollowContext } from "../../store/FollowContext";
 import Post from "../Posts/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMyPost } from "../../store/posts";
+import { selectMyFollower, selectMyFollowing } from "../../store/follows";
 const Profile = () => {
   const { name, img, id } = useSelector((state) => state.users.me);
   const myPosts = useSelector((state) => state.posts.myPosts);
   const posts = useSelector((state) => state.posts.posts);
-  console.log(myPosts);
-  const { follows } = useContext(FollowContext);
+  const follower = useSelector((state) => state.follows.myFollower);
+  const following = useSelector((state) => state.follows.myFollowing);
+
   const dispatch = useDispatch();
 
   const myFollower = () => {
-    return follows.filter((follow) => follow.following === id);
+    dispatch(selectMyFollower());
+    //return follows.filter((follow) => follow.following === id);
   };
   const myFollowing = () => {
-    return follows.filter((follow) => follow.follower === id);
+    dispatch(selectMyFollowing());
+    //return follows.filter((follow) => follow.follower === id);
   };
 
   useEffect(() => {
     dispatch(selectMyPost());
-    // myFollower();
-    // myFollowing();
+    myFollower();
+    myFollowing();
   }, [posts]);
 
   return (
@@ -34,8 +38,8 @@ const Profile = () => {
       <Container className="ProfileContainer">
         <ProfileBody
           img={img}
-          follower={myFollower()}
-          following={myFollowing()}
+          follower={follower}
+          following={following}
           posts={myPosts.posts}
           name={name}
           postState={myPosts}
