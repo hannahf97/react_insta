@@ -59,29 +59,22 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={{ users, insertUsers, updateUsers }}>
-      <PostContext.Provider value={{ posts, insertPost, deletePost }}>
-        <FollowContext.Provider value={{ follows, insertFollow }}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout></Layout>}>
-                <Route index element={<Main></Main>}></Route>
-                <Route path="/shopping" element={<Main></Main>}></Route>
-                <Route path="/profile" element={<Profile></Profile>}></Route>
-                <Route path="/search" element={<Search></Search>}></Route>
-              </Route>
-              <Route
-                path="/login"
-                element={<BootstrapLogin></BootstrapLogin>}
-              ></Route>
-
-              <Route path="/join" element={<Join></Join>}></Route>
-              <Route path="/*" element={<Page404></Page404>}></Route>
-            </Routes>
-          </BrowserRouter>
-        </FollowContext.Provider>
-      </PostContext.Provider>
-    </UserContext.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout></Layout>}>
+          <Route index element={<Main></Main>}></Route>
+          <Route path="shopping" element={<Main></Main>}></Route>
+          <Route path="profile" element={<Profile></Profile>}></Route>
+          <Route path="search" element={<Search></Search>}></Route>
+        </Route>
+        <Route
+          path="/login"
+          element={<BootstrapLogin></BootstrapLogin>}
+        ></Route>
+        <Route path="/join" element={<Join></Join>}></Route>
+        <Route path="/*" element={<Page404></Page404>}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

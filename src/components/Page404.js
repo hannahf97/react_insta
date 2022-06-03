@@ -1,14 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Users } from "../data/User";
 
 const Page404 = () => {
   const navigate = useNavigate();
+  const isLogin = useSelector((state) => state.users.isLogin);
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
-    const findUser = Users.find((data) => data.id === Number(id));
-    if (!findUser) {
+    // const id = localStorage.getItem("id");
+    // const findUser = Users.find((data) => data.id === Number(id));
+    if (!isLogin) {
       navigate("/login");
     } else {
       navigate("/");
