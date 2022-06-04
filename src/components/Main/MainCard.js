@@ -4,11 +4,9 @@ import { useState } from "react";
 
 const MainCard = ({ post }) => {
   const [heart, isChecked] = useState(false);
-  const onClick = () => {
-    isChecked(!heart);
-  };
+
   return (
-    <Card className="mainCard" onClick={onClick}>
+    <Card className="mainCard" onClick={() => isChecked(!heart)}>
       <div className="PostsBodyHeader">
         <div className="PostsBodyHeaderImgBox">
           <img

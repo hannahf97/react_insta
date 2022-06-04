@@ -1,6 +1,9 @@
 import React from "react";
+import { Button } from "reactstrap";
 import PostsAdd from "../Posts/PostsAdd";
-import "./Main.css";
+import { AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
+import { BsPerson } from "react-icons/bs";
+
 const MainHeader = () => {
   return (
     <div className="mainHeader">
@@ -11,7 +14,17 @@ const MainHeader = () => {
           alt="Logo"
         ></img>
       </div>
-      <PostsAdd></PostsAdd>
+      <div className="icons">
+        <Button outline color="secondary" style={{ border: "none" }}>
+          <AiOutlineCompass></AiOutlineCompass>
+        </Button>
+        <Button outline color="secondary" style={{ border: "none" }}>
+          <AiOutlineHeart></AiOutlineHeart>
+        </Button>
+        <Button outline color="secondary" style={{ border: "none" }}>
+          <BsPerson></BsPerson>
+        </Button>
+      </div>
     </div>
   );
 };

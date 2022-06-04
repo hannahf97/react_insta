@@ -26,7 +26,7 @@ const Main = () => {
           <Spinner>loading...</Spinner>
         ) : (
           mainPosts.posts.map((post) => (
-            <MainCard key={post.id} post={post} onClick={"동작"}></MainCard>
+            <MainCard key={post.id} post={post}></MainCard>
           ))
         )}
       </Container>
