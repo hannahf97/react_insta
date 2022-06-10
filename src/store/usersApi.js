@@ -1,6 +1,18 @@
+import axios from "axios";
+import customAxios from "../http/CustomAxios";
+
+export const loginCheckApi = async (users, id) => {
+  const response = await axios({
+    url: "http://localhost:8001/user/check",
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  return response.data;
+};
 export const getUserById = async (users, id) => {
-  const findUserById = await users.find((user) => user.id === id);
-  return findUserById;
+  return await customAxios("/user/check", "get");
 };
 
 export const getUserByUserId = async (users, userId) => {
@@ -15,14 +27,27 @@ export const getUserByKey = async (users, key) => {
 
 export const postUser = async (users, user) => {
   const newUser = { ...user, userId: user.userId, id: users.length };
+  const response = await axios({
+    method: "post",
+    data: newUser,
+    url: "http://localhost:8001/user/",
+  });
+  console.log(response);
   return [...users, newUser];
 };
 
 export const loginApi = async (users, user) => {
-  const checkUser = await users.find(
-    (data) => data.userId === user.userId && data.password === user.password
-  );
-  return { isLogin: checkUser ? true : false, user: checkUser };
+  // const checkUser = await users.find(
+  //   (data) => data.userId === user.userId && data.password === user.password
+  // );
+  const newUser = { ...user, userId: user.userId, id: null };
+  const response = await axios({
+    method: "post",
+    data: newUser,
+    url: "http://localhost:8001/user/login",
+  });
+  console.log(response.data.token);
+  return { isLogin: response.data.token ? true : false, user: response.data };
 };
 
 export const checkId = async (users, userId) => {
