@@ -1,18 +1,11 @@
 import axios from "axios";
-import customAxios from "../http/CustomAxios";
+import { customAxios } from "../http/CustomAxios";
 
 export const loginCheckApi = async (users, id) => {
-  const response = await axios({
-    url: "http://localhost:8001/user/check",
-    method: "get",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-  return response.data;
+  return await customAxios("/user/check", "get");
 };
 export const getUserById = async (users, id) => {
-  return await customAxios("/user/check", "get");
+  return await customAxios(`/user/${id}`, "get");
 };
 
 export const getUserByUserId = async (users, userId) => {
