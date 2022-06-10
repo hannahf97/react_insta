@@ -1,3 +1,5 @@
+import { customAxios } from "../http/CustomAxios";
+
 export const postFollower = async (myId, userId) => {
   try {
     const newFollower = await { follower: userId, following: myId };
@@ -24,7 +26,7 @@ export const getFollowerByMe = async (follows, myId) => {
     const findFollowerByMe = await follows.filter(
       (follow) => follow.follower === myId
     );
-    return findFollowerByMe;
+    return await customAxios("/follow/my/follower", "get");
   } catch (error) {
     throw error;
   }
@@ -35,7 +37,7 @@ export const getFollowingByMe = async (follows, myId) => {
     const findFollowingByMe = await follows.filter(
       (follow) => follow.following === myId
     );
-    return findFollowingByMe;
+    return await customAxios("/follow/my/following", "get");
   } catch (error) {
     throw error;
   }

@@ -1,8 +1,19 @@
+import axios from "axios";
+import { customAxios } from "../http/CustomAxios";
+
 export const getPostById = async (posts, id) => {
   try {
     console.log(id);
     const findPostById = await posts.filter((post) => post.id === Number(id));
     return findPostById;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMyPost = async (posts, userId) => {
+  try {
+    return await customAxios("/post/my", "get");
   } catch (error) {
     throw error;
   }

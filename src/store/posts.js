@@ -7,6 +7,7 @@ import {
   getPostByUserId,
   postPost,
   getPostMain,
+  getMyPost,
 } from "./postsAPI";
 const initialState = {
   posts: Post,
@@ -41,10 +42,10 @@ export const selectMyPost = createAsyncThunk(
     const { myId } = thunkAPI.getState().users;
     const { posts } = thunkAPI.getState().posts;
     if (myId) {
-      const myPosts = await getPostByUserId(posts, Number(myId));
+      const myPosts = await getMyPost(posts, Number(myId));
       return myPosts;
     } else if (myId === 0 || myId === "0") {
-      const myPosts = await getPostByUserId(posts, Number(myId));
+      const myPosts = await getMyPost(posts, Number(myId));
       return myPosts;
     }
   }
