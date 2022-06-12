@@ -1,9 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Container } from "reactstrap";
 import ProfileBody from "./ProfileBody";
 import ProfileHeader from "./ProfileHeader";
 import "./Profile.css";
-import { FollowContext } from "../../store/FollowContext";
 import Post from "../Posts/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMyPost } from "../../store/posts";

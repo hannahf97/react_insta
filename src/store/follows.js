@@ -96,14 +96,16 @@ export const selectMyFollowingOne = createAsyncThunk(
         Number(myId),
         userId
       );
-      return myfollows ? true : false;
+      console.log(myfollows);
+      return myfollows.length !== 0 ? true : false;
     } else if (myId === 0 || myId === "0") {
       const myfollows = await getFollowingByMeOne(
         follows,
         Number(myId),
         userId
       );
-      return myfollows ? true : false;
+      console.log(myfollows);
+      return myfollows !== 0 ? true : false;
     } else {
       return;
     }

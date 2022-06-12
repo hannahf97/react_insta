@@ -1,8 +1,19 @@
+import axios from "axios";
+import { customAxios } from "../http/CustomAxios";
+
 export const getPostById = async (posts, id) => {
   try {
     console.log(id);
     const findPostById = await posts.filter((post) => post.id === Number(id));
     return findPostById;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMyPost = async (posts, userId) => {
+  try {
+    return await customAxios("/post/my", "get");
   } catch (error) {
     throw error;
   }
@@ -68,6 +79,23 @@ export const getPostByKey = async (posts, key, userId) => {
       (post) => userId === post.userId || key.test(post.content)
     );
     return findPostByUserId;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPostMain = async (posts, follows, users) => {
+  try {
+    const filterPostMain = await posts.filter(
+      (
+        { userId } //
+      ) => follows.every(({ following }) => userId !== following)
+    );
+    const joinPostMain = await filterPostMain.map((post) => {
+      const user = users.find((user) => user.id === post.userId);
+      return { ...post, userName: user.name, userImg: user.img };
+    });
+    return joinPostMain;
   } catch (error) {
     throw error;
   }

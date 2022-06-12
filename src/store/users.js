@@ -9,11 +9,12 @@ import {
   getUserByUserId,
   getUserByKey,
   putUsers,
+  loginCheckApi,
 } from "./usersApi";
 const initialState = {
   users: Users,
-  myId: localStorage.getItem("id"),
-  isLogin: localStorage.getItem("id") === undefined ? true : false,
+  myId: localStorage.getItem("token"),
+  isLogin: localStorage.getItem("token") === undefined ? true : false,
   me: {},
 };
 
@@ -39,10 +40,10 @@ export const loginCheck = createAsyncThunk(
   async (payload, thunkAPI) => {
     const { users, myId } = thunkAPI.getState().users;
     if (myId) {
-      const me = await getUserById(users, Number(myId));
+      const me = await loginCheckApi(users, Number(myId));
       return me;
     } else if (myId === 0 || myId === "0") {
-      const me = await getUserById(users, Number(myId));
+      const me = await loginCheckApi(users, Number(myId));
       return me;
     }
     return;
@@ -118,8 +119,7 @@ export const usersSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         if (payload.isLogin) {
-          localStorage.setItem("id", payload.user.id);
-          localStorage.setItem("token", payload.token);
+          localStorage.setItem("token", payload.user.token);
           return {
             ...state,
             isLogin: payload.login, //
@@ -131,7 +131,7 @@ export const usersSlice = createSlice({
         }
       })
       .addCase(logout.fulfilled, (state, { payload }) => {
-        localStorage.removeItem("id");
+        localStorage.removeItem("token");
         return { ...state, isLogin: false, me: {}, myId: "" };
       })
       .addCase(updateUsers.fulfilled, (state, { payload }) => {

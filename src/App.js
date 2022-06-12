@@ -1,18 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BootstrapLogin from "./components/Login/BootstrapLogin";
-import Main from "./components/Main";
 import Page404 from "./components/Page404";
 import Join from "./components/Join/Join";
 import { useState } from "react";
 import { Users } from "./data/User";
-import { UserContext } from "./store/UserContext";
+
 import { Post } from "./data/Post";
 import { Follow } from "./data/Follow";
-import { PostContext } from "./store/PostContext";
-import { FollowContext } from "./store/FollowContext";
 import Layout from "./components/Layout/Layout";
 import Profile from "./components/Profile/Profile";
 import Search from "./components/Search/Search";
+import Main from "./components/Main/Main";
 
 function App() {
   const [users, setUsers] = useState(Users);

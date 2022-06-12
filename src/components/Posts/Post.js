@@ -25,7 +25,6 @@ const Post = ({ posts, postState }) => {
       });
   };
   const closeModal = () => {
-    console.log("clicked");
     setClickPost();
     setIsOpen(false);
   };

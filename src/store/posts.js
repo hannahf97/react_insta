@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { Post } from "../data/Post";
 import {
   deletePostById,
   getPostByKey,
   getPostByOther,
-  getPostById,
   getPostByUserId,
   postPost,
+  getPostMain,
+  getMyPost,
 } from "./postsAPI";
 const initialState = {
   posts: Post,
@@ -42,10 +42,10 @@ export const selectMyPost = createAsyncThunk(
     const { myId } = thunkAPI.getState().users;
     const { posts } = thunkAPI.getState().posts;
     if (myId) {
-      const myPosts = await getPostByUserId(posts, Number(myId));
+      const myPosts = await getMyPost(posts, Number(myId));
       return myPosts;
     } else if (myId === 0 || myId === "0") {
-      const myPosts = await getPostByUserId(posts, Number(myId));
+      const myPosts = await getMyPost(posts, Number(myId));
       return myPosts;
     }
   }
@@ -97,6 +97,18 @@ export const insertPosts = createAsyncThunk(
     // if (isInsert === 1) {
     //   console.log(isInsert);
     //   useDispatch(selectMyPost());
+  }
+);
+
+export const selectPostMain = createAsyncThunk(
+  SELECT_POST_MAIN,
+  async (payload, thunkAPI) => {
+    const { posts } = thunkAPI.getState().posts;
+    const { follows } = thunkAPI.getState().follows.myFollower;
+    const { users } = thunkAPI.getState().users;
+
+    const myPosts = await getPostMain(posts, follows, users);
+    return myPosts;
   }
 );
 
@@ -176,6 +188,23 @@ export const postsSlice = createSlice({
       })
       .addCase(insertPosts.fulfilled, (state, { payload }) => {
         return { ...state, posts: payload };
+      })
+      .addCase(selectPostMain.pending, (state, { payload }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = true;
+        return { ...state, mainPosts };
+      })
+      .addCase(selectPostMain.fulfilled, (state, { payload }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = false;
+        mainPosts.posts = payload;
+        return { ...state, mainPosts };
+      })
+      .addCase(selectPostMain.rejected, (state, { error }) => {
+        const mainPosts = { ...state.mainPosts };
+        mainPosts.loading = false;
+        mainPosts.message = error.message;
+        return { ...state, mainPosts };
       });
   },
 });

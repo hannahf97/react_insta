@@ -20,4 +20,11 @@ export const Users = [
     img: "/img/profile/3.webp",
     password: "1234",
   },
+  {
+    id: 3,
+    name: "doju",
+    userId: "doju",
+    img: "/img/profile/4.JPG",
+    password: "1234",
+  },
 ];
