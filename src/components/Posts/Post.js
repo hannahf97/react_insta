@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { selectUserById } from "../../store/users";
 import { deletePost } from "../../store/posts";
+import { IMG_PATH } from "../../http/CustomAxios";
 const Post = ({ posts, postState }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [postUser, setPostUser] = useState();
@@ -47,7 +48,7 @@ const Post = ({ posts, postState }) => {
             <img
               className="PostsImg"
               key={data.id}
-              src={data.img}
+              src={`${IMG_PATH}${data.img}`}
               alt={data.content}
             ></img>
           </div>

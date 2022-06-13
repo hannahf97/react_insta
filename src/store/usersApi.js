@@ -2,7 +2,7 @@ import axios from "axios";
 import { customAxios } from "../http/CustomAxios";
 
 export const loginCheckApi = async (users, id) => {
-  return await customAxios("/user/check", "get");
+  return await customAxios("/user/me", "get");
 };
 export const getUserById = async (users, id) => {
   return await customAxios(`/user/${id}`, "get");
@@ -23,7 +23,7 @@ export const postUser = async (users, user) => {
   const response = await axios({
     method: "post",
     data: newUser,
-    url: "http://localhost:8001/user/",
+    url: "http://localhost:8000/user/",
   });
   console.log(response);
   return [...users, newUser];
@@ -37,7 +37,7 @@ export const loginApi = async (users, user) => {
   const response = await axios({
     method: "post",
     data: newUser,
-    url: "http://localhost:8001/user/login",
+    url: "http://localhost:8000/user/login",
   });
   console.log(response.data.token);
   return { isLogin: response.data.token ? true : false, user: response.data };

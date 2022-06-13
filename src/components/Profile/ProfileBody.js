@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Button, Spinner } from "reactstrap";
 import "./ProfileBody.css";
 import ProfileUpdate from "./ProfileUpdate";
+import { IMG_PATH } from "../../http/CustomAxios";
 const ProfileBody = ({
   posts,
   follower,
   following,
-  img = "/img/profile/1.jpeg",
+  img = "/img/1.jpeg",
   name = "park",
   postState,
 }) => {
@@ -23,7 +24,7 @@ const ProfileBody = ({
         <div className="profileImgBox">
           <img
             className="profileImg" //
-            src={img}
+            src={`${IMG_PATH}${img}`}
             alt="myProfileImg"
           ></img>
         </div>

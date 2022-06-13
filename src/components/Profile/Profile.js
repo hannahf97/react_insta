@@ -13,7 +13,6 @@ const Profile = () => {
   const posts = useSelector((state) => state.posts.posts);
   const follower = useSelector((state) => state.follows.myFollower);
   const following = useSelector((state) => state.follows.myFollowing);
-
   const dispatch = useDispatch();
 
   const myFollower = () => {
