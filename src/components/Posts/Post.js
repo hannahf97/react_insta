@@ -14,6 +14,7 @@ const Post = ({ posts, postState }) => {
   const [clickPost, setClickPost] = useState();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const openModal = (post) => {
     dispatch(selectUserById(post.userId))
       .unwrap()

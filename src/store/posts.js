@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Post } from "../data/Post";
-import { customAxios } from "../http/CustomAxios";
+import { customAxios, fileAxios } from "../http/CustomAxios";
 import {
   deletePostById,
   getPostByKey,
@@ -36,7 +36,6 @@ const DELETE_POST = "DELETE_POST";
 const INSERT_POST = "INSERT_POST";
 const SELECT_POST_MAIN = "SELECT_POST_MAIN";
 const SELECT_POST_BY_KEY = "SELECT_POST_BY_KEY";
-
 export const selectMyPost = createAsyncThunk(
   SELECT_MY_POST,
   async (payload, thunkAPI) => {
@@ -84,8 +83,10 @@ export const insertPosts = createAsyncThunk(
     const { posts } = thunkAPI.getState().posts;
     let filePath = "";
     const { content, img, file } = payload;
+    let uploadFile = new FormData();
+    uploadFile.append("file", file);
     if (file) {
-      filePath = await customAxios("/upload", "post", file);
+      filePath = await fileAxios("/upload", "post", uploadFile);
     }
 
     const post = {

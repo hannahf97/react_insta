@@ -34,8 +34,8 @@ export const getPostByUserId = async (posts, userId) => {
 
 export const postPost = async (posts, post) => {
   try {
-    const newPost = { ...post, id: posts.length };
-    return [...posts, newPost];
+    const response = await customAxios("/post/", "post", post);
+    return response;
   } catch (error) {
     throw error;
   }

@@ -9,15 +9,16 @@ const PostsAdd = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     content: "",
-    img: "/img/post/1.jpeg",
+    img: "/img/1.jpeg",
     file: "",
   });
   const onChangeFile = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     return new Promise((resolve) => {
-      reader.onoad = () => {
+      reader.onload = () => {
         setForm({ ...form, img: reader.result, file });
         resolve();
       };

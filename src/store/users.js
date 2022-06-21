@@ -1,4 +1,3 @@
-import { Users } from "../data/User";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { logoutApi } from "../components/Login/LogoutApi";
 import {
@@ -12,7 +11,6 @@ import {
   loginCheckApi,
 } from "./usersApi";
 const initialState = {
-  users: Users,
   myId: localStorage.getItem("token"),
   isLogin: localStorage.getItem("token") === undefined ? true : false,
   me: {},
@@ -124,7 +122,6 @@ export const usersSlice = createSlice({
             ...state,
             isLogin: payload.login, //
             me: payload.user,
-            myId: payload.user.id,
           };
         } else {
           return { ...state, isLogin: false };

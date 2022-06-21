@@ -39,7 +39,6 @@ export const loginApi = async (users, user) => {
     data: newUser,
     url: "http://localhost:8000/user/login",
   });
-  console.log(response.data.token);
   return { isLogin: response.data.token ? true : false, user: response.data };
 };
 
